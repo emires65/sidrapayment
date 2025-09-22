@@ -38,6 +38,15 @@ All colors MUST be HSL.
 
     --radius: 0.5rem;
 
+    /* Sidra Chain specific colors */
+    --sidra-dark: 220 13% 18%;
+    --sidra-gold: 45 93% 58%;
+    --sidra-brown: 25 75% 47%;
+    --sidra-gray-text: 0 0% 71%;
+    --kyc-dark: 223 47% 23%;
+    --kyc-purple: 259 94% 51%;
+    --kyc-blue: 223 84% 59%;
+
     --sidebar-background: 0 0% 98%;
 
     --sidebar-foreground: 240 5.3% 26.1%;

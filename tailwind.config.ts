@@ -57,6 +57,17 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        sidra: {
+          dark: "hsl(var(--sidra-dark))",
+          gold: "hsl(var(--sidra-gold))",
+          brown: "hsl(var(--sidra-brown))",
+          gray: "hsl(var(--sidra-gray-text))",
+        },
+        kyc: {
+          dark: "hsl(var(--kyc-dark))",
+          purple: "hsl(var(--kyc-purple))",
+          blue: "hsl(var(--kyc-blue))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
