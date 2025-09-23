@@ -6,7 +6,7 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   const handleKycPortLogin = () => {
-    navigate("/login");
+    navigate("/confirm-payment");
   };
 
   return (
