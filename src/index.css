@@ -114,6 +114,9 @@ All colors MUST be HSL.
 }
 
 /* Hide JivoChat widget while keeping API functionality */
+jdiv,
+jdiv[id*="jivo"],
+jdiv[class*="jivo"],
 #jivo-iframe,
 #jivo-wrapper,
 #jivo-widget,
@@ -121,7 +124,8 @@ All colors MUST be HSL.
 [id*="jivo"],
 [class*="jivo"],
 .jivo-widget,
-.jivo-frame {
+.jivo-frame,
+iframe[src*="jivo"] {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;

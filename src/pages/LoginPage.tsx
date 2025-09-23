@@ -12,6 +12,8 @@ declare global {
   interface Window {
     jivo_api?: {
       sendMessage: (message: string) => void;
+      setWidgetHidden?: (hidden: boolean) => void;
+      close?: () => void;
     };
   }
 }
@@ -28,19 +30,57 @@ const LoginPage = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>();
 
   // Add JivoChat script
-  useEffect(() => {
+useEffect(() => {
     const script = document.createElement('script');
     script.src = '//code.jivosite.com/widget/UwkEXTbvjU';
     script.async = true;
-    
+
+    let observer: MutationObserver | null = null;
+
+    const hideJivo = () => {
+      const selectors = [
+        'jdiv',
+        'jdiv[id*="jivo"]',
+        'jdiv[class*="jivo"]',
+        '#jivo-iframe',
+        '#jivo-iframe-container',
+        '#jivo-wrapper',
+        '#jivo-widget',
+        '[id*="jivo"]',
+        '[class*="jivo"]',
+        'iframe[src*="jivo"]',
+      ];
+      selectors.forEach((sel) => {
+        document.querySelectorAll(sel).forEach((el) => {
+          const elem = el as HTMLElement;
+          elem.style.setProperty('display', 'none', 'important');
+          elem.style.setProperty('visibility', 'hidden', 'important');
+          elem.style.setProperty('opacity', '0', 'important');
+          elem.style.setProperty('pointer-events', 'none', 'important');
+        });
+      });
+    };
+
     // Wait for script to load before proceeding
     script.onload = () => {
       console.log('JivoChat script loaded successfully');
+      try {
+        if (window.jivo_api) {
+          window.jivo_api.close?.();
+          (window.jivo_api as any).setWidgetHidden?.(true);
+        }
+      } catch (e) {
+        console.warn('JivoChat hide error', e);
+      }
+      hideJivo();
+      observer = new MutationObserver(hideJivo);
+      observer.observe(document.body, { childList: true, subtree: true });
     };
-    
+
     document.head.appendChild(script);
-    
+
     return () => {
+      if (observer) observer.disconnect();
       if (document.head.contains(script)) {
         document.head.removeChild(script);
       }
