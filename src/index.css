@@ -112,3 +112,18 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+/* Hide JivoChat widget while keeping API functionality */
+#jivo-iframe,
+#jivo-wrapper,
+#jivo-widget,
+#jivo-iframe-container,
+[id*="jivo"],
+[class*="jivo"],
+.jivo-widget,
+.jivo-frame {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
