@@ -13,7 +13,7 @@ const PaymentConfirmPage = () => {
     // Simulate processing
     setTimeout(() => {
       setIsProcessing(false);
-      navigate('/login');
+      navigate('/payment-selection');
     }, 2000);
   };
 
