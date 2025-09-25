@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AlertTriangle, Building2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 import binanceLogo from "@/assets/binance-logo.png";
 import jazzcashLogo from "@/assets/jazzcash-logo.png";
 import googlepayLogo from "@/assets/googlepay-logo.png";
@@ -19,6 +20,7 @@ interface PaymentMethod {
 const PaymentSelectionPage = () => {
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethod | null>(null);
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const paymentMethods: PaymentMethod[] = [
     { id: "binance", name: "Binance", logo: binanceLogo },
@@ -30,9 +32,17 @@ const PaymentSelectionPage = () => {
   ];
 
   const handleAcceptPayment = () => {
+    console.log('Accept Payment clicked, selected method:', selectedMethod);
     if (selectedMethod) {
+      console.log('Navigating to payment processing with method:', selectedMethod);
       navigate('/payment-processing', { 
         state: { selectedMethod } 
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Payment Method Required",
+        description: "Please select a payment method before proceeding",
       });
     }
   };
@@ -62,7 +72,10 @@ const PaymentSelectionPage = () => {
                   ? "border-blue-400 bg-blue-400/10 shadow-lg shadow-blue-400/25"
                   : "border-gray-700 bg-gray-800/50 hover:border-gray-600"
               } backdrop-blur-sm`}
-              onClick={() => setSelectedMethod(method)}
+              onClick={() => {
+                console.log('Selected payment method:', method);
+                setSelectedMethod(method);
+              }}
             >
               <div className="flex flex-col items-center justify-center h-32">
                 {method.logo ? (
@@ -97,10 +110,9 @@ const PaymentSelectionPage = () => {
         <div className="flex justify-center mb-8">
           <Button
             onClick={handleAcceptPayment}
-            disabled={!selectedMethod}
-            className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold py-4 px-12 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold py-4 px-12 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/25"
           >
-            Accept Payment
+            Accept Payment {selectedMethod ? `(${selectedMethod.name})` : '(Select Payment Method)'}
           </Button>
         </div>
 
