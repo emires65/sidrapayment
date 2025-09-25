@@ -90,7 +90,13 @@ const PaymentSelectionPage = () => {
                   />
                 ) : method.icon ? (
                   <method.icon className="w-12 h-12 text-blue-400 mb-4" />
-                ) : null}
+                ) : (
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-400 rounded-lg flex items-center justify-center mb-4">
+                    <span className="text-white font-bold text-lg">
+                      {method.name.charAt(0)}
+                    </span>
+                  </div>
+                )}
                 <div className="fallback-icon hidden">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-400 rounded-lg flex items-center justify-center mb-4">
                     <span className="text-white font-bold text-lg">
