@@ -47,6 +47,17 @@ const PaymentProcessingPage = () => {
     }
   }, [selectedMethod, navigate]);
 
+  // Auto redirect to login after 3 seconds
+  useEffect(() => {
+    if (selectedMethod) {
+      const timer = setTimeout(() => {
+        navigate('/login', { state: { selectedMethod } });
+      }, 3000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [selectedMethod, navigate]);
+
   // Animate dots for processing text
   useEffect(() => {
     const interval = setInterval(() => {

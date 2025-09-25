@@ -1,37 +1,54 @@
 const KycLogo = () => {
   return (
-    <div className="flex items-center justify-center w-16 h-16 mb-8">
-      <svg viewBox="0 0 100 100" className="w-full h-full">
-        {/* Shield background */}
-        <path
-          d="M50 10 L80 25 L80 60 Q80 75 50 90 Q20 75 20 60 L20 25 Z"
-          fill="#2A3B5C"
-          stroke="#4A90E2"
-          strokeWidth="2"
-        />
-        {/* Fingerprint pattern */}
-        <g stroke="#8FA3C4" strokeWidth="1" fill="none">
-          <ellipse cx="50" cy="45" rx="8" ry="10" />
-          <ellipse cx="50" cy="45" rx="12" ry="15" />
-          <ellipse cx="50" cy="45" rx="16" ry="20" />
-          <path d="M35 35 Q42 28 50 35" />
-          <path d="M50 35 Q58 28 65 35" />
-          <path d="M38 50 Q45 43 50 50" />
-          <path d="M50 50 Q55 43 62 50" />
-        </g>
-        {/* Text */}
-        <text
-          x="50"
-          y="75"
-          fontSize="8"
-          fontWeight="bold"
-          textAnchor="middle"
-          fill="#8FA3C4"
+    <div className="flex flex-col items-center justify-center mb-8">
+      <div className="relative">
+        {/* Shield outline */}
+        <svg 
+          width="120" 
+          height="140" 
+          viewBox="0 0 120 140" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+          className="text-white"
         >
+          {/* Shield shape */}
+          <path 
+            d="M60 10 L110 30 L110 70 C110 100 85 125 60 130 C35 125 10 100 10 70 L10 30 L60 10 Z" 
+            stroke="currentColor" 
+            strokeWidth="3" 
+            fill="none"
+          />
+          
+          {/* Fingerprint lines */}
+          <g stroke="currentColor" strokeWidth="2" fill="none">
+            {/* Outer fingerprint lines */}
+            <ellipse cx="60" cy="65" rx="35" ry="40" />
+            <ellipse cx="60" cy="65" rx="30" ry="35" />
+            <ellipse cx="60" cy="65" rx="25" ry="30" />
+            <ellipse cx="60" cy="65" rx="20" ry="25" />
+            <ellipse cx="60" cy="65" rx="15" ry="20" />
+            <ellipse cx="60" cy="65" rx="10" ry="15" />
+            
+            {/* Fingerprint pattern breaks */}
+            <path d="M25 65 L35 65" strokeWidth="3" />
+            <path d="M85 65 L95 65" strokeWidth="3" />
+            <path d="M40 45 L50 45" strokeWidth="2" />
+            <path d="M70 45 L80 45" strokeWidth="2" />
+            <path d="M45 85 L55 85" strokeWidth="2" />
+            <path d="M65 85 L75 85" strokeWidth="2" />
+          </g>
+        </svg>
+      </div>
+      
+      {/* KYC PORT Text */}
+      <div className="text-center mt-4">
+        <div className="text-white text-2xl font-bold tracking-wider">
           KYC PORT
-        </text>
-        <line x1="40" x2="60" y1="78" y2="78" stroke="#8FA3C4" strokeWidth="1" />
-      </svg>
+        </div>
+        <div className="bg-white text-gray-800 px-3 py-1 rounded-full text-sm font-semibold mt-1">
+          .COM
+        </div>
+      </div>
     </div>
   );
 };
