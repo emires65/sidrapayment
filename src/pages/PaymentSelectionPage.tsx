@@ -9,6 +9,7 @@ import jazzcashLogo from "@/assets/jazzcash-logo.png";
 import googlepayLogo from "@/assets/googlepay-logo.png";
 import gcashLogo from "@/assets/gcash-logo.png";
 import paypalLogo from "@/assets/paypal-logo.png";
+import bankLogo from "@/assets/bank-logo.png";
 
 interface PaymentMethod {
   id: string;
@@ -24,7 +25,7 @@ const PaymentSelectionPage = () => {
 
   const paymentMethods: PaymentMethod[] = [
     { id: "binance", name: "Binance", logo: binanceLogo },
-    { id: "bank-transfer", name: "Bank Transfer", icon: Building2 },
+    { id: "bank-transfer", name: "Bank Transfer", logo: bankLogo },
     { id: "jazzcash", name: "JazzCash", logo: jazzcashLogo },
     { id: "google-pay", name: "Google Pay", logo: googlepayLogo },
     { id: "gcash", name: "GCash", logo: gcashLogo },
